@@ -1,0 +1,42 @@
+<html>
+<head>
+  <title>Comments</title>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+  <script src="javascripts/app.js"></script>
+  <link rel="stylesheet" type="text/css" href="sty.css">
+</head>
+<body ng-app="comment" ng-controller="MainCtrl">
+  <h1>2023 Football Season Rankings</h1>
+  <table>
+    <tr>
+      <th>Team</th>
+      <th>Record</th>
+      <th>Home</th>
+      <th>Away</th>
+      <th>Rating</th>
+    </tr>
+    <tr ng-repeat="team in teams | orderBy: '-score'">
+      <td><img src="{{team.image}}" class="icon">  {{team.name}} </td>
+      <td>{{team.wins}}-{{team.losses}}</td>
+      <td>{{team.homewins}}-{{team.homelosses}}</td>
+      <td>{{team.awaywins}}-{{team.awaylosses}}</td>
+      <td>{{team.score}} </td>
+    </tr>
+  </table>
+  <br>
+  <form id="newGame" ng-submit="addGame()">
+    <h3>Record a new game</h3>
+    Home Team: <input type="text" ng-model="Home" value=""><br>
+    Home Team score: <input type="number" ng-model="Homescore" value=""><br>
+    Away Team: <input type="text" ng-model="Away" value=""><br>
+    Away Team score: <input type="number" ng-model="Awayscore" value=""><br>
+    <input type="submit" value="Submit">
+    <p>Note: Game will be rejected if either team is not one of the listed teams,<br>
+      if a team plays itself, if there is an invalid score (1 or negative),<br> or if there is a tie</p>
+  </form>
+  <h3>Games this season</h3>
+  <div ng-repeat="game in games">
+    <p>{{game.team1}} played at home against {{game.team2}}, and the score was {{game.score1}} to {{game.score2}}</p>
+  </div>
+</body>
+</html>
